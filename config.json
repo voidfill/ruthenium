@@ -1,0 +1,7 @@
+{
+  "userToken": "example token here",
+  "whitelistSetArray": [
+      "main bot owner id here",
+      "other people you trust"
+    ]
+}
