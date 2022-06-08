@@ -28,6 +28,6 @@ export default class MainCommand extends BaseCommand {
 	async run(payload: Context, __args: ParsedArgs): Promise<any> {
 		const message = payload.message;
 		await message.delete();
-		await message.reply(`https://tt-embed.herokuapp.com/?q=${__args[COMMAND_NAME]}`);
+		await message.reply(`https://tt-embed.com/?q=${__args[COMMAND_NAME]}`);
 	}
 }
