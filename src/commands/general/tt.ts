@@ -13,7 +13,6 @@ export default class MainCommand extends BaseCommand {
 			permissionsClient: [
 				Permissions.SEND_MESSAGES,
 				Permissions.EMBED_LINKS,
-				Permissions.MANAGE_MESSAGES,
 			],
 			permissions: [],
 			metadata: {
@@ -26,8 +25,9 @@ export default class MainCommand extends BaseCommand {
 	}
 
 	async run(payload: Context, __args: ParsedArgs): Promise<any> {
-		const message = payload.message;
-		await message.delete();
-		await message.reply(`https://tt-embed.com/?q=${__args[COMMAND_NAME]}`);
+		if(payload.message.guild?.can(Permissions.MANAGE_MESSAGES)) {
+			payload.message.delete();
+		}
+		return payload.message.reply(`https://tt-embed.herokuapp.com/?q=${__args[COMMAND_NAME]}`);
 	}
 }
