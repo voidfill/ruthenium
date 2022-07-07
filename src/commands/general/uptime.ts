@@ -12,8 +12,6 @@ export default class MainCommand extends BaseCommand {
 			name: COMMAND_NAME,
 			permissionsClient: [
 				Permissions.SEND_MESSAGES,
-				Permissions.EMBED_LINKS,
-				Permissions.MANAGE_MESSAGES,
 			],
 			permissions: [],
 			metadata: {
