@@ -5,10 +5,10 @@ import { readFileSync, writeFileSync } from "fs";
 import afterStart from "./afterStart";
 
 
-const config = make(JSON.parse(readFileSync("../config.json", "utf8")));
+const config = make(JSON.parse(readFileSync("./config.json", "utf8")));
 const updateConfig = () => {
 	try {
-		writeFileSync("../config.json", JSON.stringify(config.ghost), "utf8");
+		writeFileSync("./config.json", JSON.stringify(config.ghost), "utf8");
 	} catch(e) {
 		console.log("Failed to save config file:", e)
 	}
