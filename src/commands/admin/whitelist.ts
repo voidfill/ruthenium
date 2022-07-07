@@ -35,7 +35,7 @@ export default class MainCommand extends BaseCommand {
 			const { matches } = Utils.regex(Constants.DiscordRegexNames.TEXT_SNOWFLAKE, __args.add);
 			if (matches.length == 0) return this.run(payload, {});
 			if(ghost.whitelist.includes(matches[0].matched)) return payload.reply("User is already whitelisted");
-			ghost.whitelist.push(matches[0].matched);
+			store.whitelist.push(matches[0].matched);
 			return payload.message.reply({
 				content: `Added <@${matches[0].matched}> to the whitelist`,
 				allowedMentions: {
