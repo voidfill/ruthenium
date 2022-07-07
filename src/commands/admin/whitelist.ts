@@ -29,11 +29,13 @@ export default class MainCommand extends BaseCommand {
 	}
 
 	async run(payload: Context, __args: ParsedArgs): Promise<any> {
+		const {ghost, store} = payload.commandClient.config;
+
 		if (__args.add) {
 			const { matches } = Utils.regex(Constants.DiscordRegexNames.TEXT_SNOWFLAKE, __args.add);
 			if (matches.length == 0) return this.run(payload, {});
-			this.commandClient.config.whitelist.add(matches[0].matched);
-			this.commandClient.saveConfig();
+			if(ghost.whitelist.includes(matches[0].matched)) return payload.reply("User is already whitelisted");
+			ghost.whitelist.push(matches[0].matched);
 			return payload.message.reply({
 				content: `Added <@${matches[0].matched}> to the whitelist`,
 				allowedMentions: {
@@ -48,12 +50,14 @@ export default class MainCommand extends BaseCommand {
 				__args.remove
 			);
 			if (matches.length == 0) return this.run(payload, {});
-			const didRemove: boolean = this.commandClient.config.whitelist.delete(
-				matches[0].matched
-			);
-			if (didRemove) {
-				this.commandClient.saveConfig();
-			}
+			let didRemove = false;
+			store.whitelist = ghost.whitelist.filter((id: String) => {
+				if(id == matches[0].matched) {
+					didRemove = true;
+					return false;
+				}
+				return true;
+			});
 
 			return payload.message.reply({
 				content: didRemove
@@ -64,14 +68,8 @@ export default class MainCommand extends BaseCommand {
 				},
 			});
 		}
-
-		let string = "";
-		this.commandClient.config.whitelist.forEach((id: String) => {
-			string.length == 0 ? (string += `<@${id}> `) : (string += `, <@${id}> `);
-		});
-
 		return payload.message.reply({
-			content: `Current Admins: ${string}`,
+			content: `Current Admins: ${ghost.whitelist.join(", ")}`,
 			allowedMentions: {
 				parse: [],
 			},

@@ -1,15 +1,31 @@
 import { CommandClient, ShardClient } from "detritus-client";
-import { readFileSync } from "fs";
+import { make, Events } from "nests";
+import { readFileSync, writeFileSync } from "fs";
+
 import afterStart from "./afterStart";
 
-const config = JSON.parse(readFileSync("./config.json", "utf8"));
-const shard = new ShardClient(config.userToken);
+
+const config = make(JSON.parse(readFileSync("../config.json", "utf8")));
+const updateConfig = () => {
+	try {
+		writeFileSync("../config.json", JSON.stringify(config.ghost), "utf8");
+	} catch(e) {
+		console.log("Failed to save config file:", e)
+	}
+}
+
+config.on(Events.SET, () => {updateConfig()})
+config.on(Events.DELETE, () => {updateConfig()})
+config.on(Events.UPDATE, () => {updateConfig()})
+
+
+const shard = new ShardClient(config.ghost.userToken);
 const commandClient = new CommandClient(shard, {
 	prefix: "..",
 	isBot: false,
 });
-
 commandClient.config = config;
+
 commandClient.addMultipleIn("commands", { subdirectories: true });
 
 (async () => {

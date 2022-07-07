@@ -57,7 +57,7 @@ export class BaseCommand<
 		);
 
 		if (context.command?.metadata.adminOnly) {
-			if (!context.commandClient.config.whitelist.has(context.userId)) {
+			if (!context.commandClient.config.ghost.whitelist.includes(context.userId)) {
 				try {
 					if (this.name === "eval")
 						context.channel?.createMessage(
