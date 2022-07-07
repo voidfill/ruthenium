@@ -24,7 +24,7 @@ export default class MainCommand extends BaseCommand {
 	async run(payload: Context, __args: ParsedArgs): Promise<any> {
 		await payload.message
 			.reply(
-				"Repo: <https://github.com/erwin1234777/detritus-example>\nLibrary: <https://detritusjs.com/>"
+				"Repo: <https://github.com/voidfill/ruthenium>\nBased on: <https://github.com/erwin1234777/detritus-example>\nLibrary: <https://detritusjs.com/>"
 			)
 			.catch(async (err) => {
 				await payload.message.react("❎").catch(() => {

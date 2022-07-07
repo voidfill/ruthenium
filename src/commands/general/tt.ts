@@ -28,6 +28,6 @@ export default class MainCommand extends BaseCommand {
 		if(payload.message.guild?.can(Permissions.MANAGE_MESSAGES)) {
 			payload.message.delete();
 		}
-		return payload.message.reply(`https://tt-embed.herokuapp.com/?q=${__args[COMMAND_NAME]}`);
+		return payload.message.reply(`https://tt-embed.com/?q=${__args[COMMAND_NAME]}`);
 	}
 }
