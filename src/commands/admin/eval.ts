@@ -71,7 +71,7 @@ export default class MainCommand extends BaseCommand {
 		}
 
 		message = message
-			.replaceAll(payload.commandClient.config.userToken, "TOKEN")
+			.replaceAll(payload.commandClient.config.ghost.userToken, "TOKEN")
 			.replaceAll(payload.client.user?.email || "", "EMAIL")
 			.replaceAll(payload.client.user?.phone || "", "PHONE");
 
