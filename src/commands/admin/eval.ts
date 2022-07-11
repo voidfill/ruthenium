@@ -66,7 +66,7 @@ export default class MainCommand extends BaseCommand {
 			return;
 		}
 
-		if (evalRet.constructor.name === "Message" && evalRet?.author?.id == payload.client.user?.id) {
+		if (evalRet?.constructor?.name === "Message" && evalRet?.author?.id == payload.client.user?.id) {
 			return;
 		}
 
