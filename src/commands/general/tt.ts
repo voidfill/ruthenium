@@ -22,11 +22,17 @@ export default class MainCommand extends BaseCommand {
 				usage: `${COMMAND_NAME}`,
 			},
 		});
+		this.args = [
+			{default: "", name: "s", type: "string"},
+		]
 	}
 
 	async run(payload: Context, __args: ParsedArgs): Promise<any> {
 		if(payload.message.guild?.can(Permissions.MANAGE_MESSAGES)) {
 			payload.message.delete();
+		}
+		if(__args.s) {
+			return payload.reply(`https://tt-embed.com/slides/?q=${__args[COMMAND_NAME]}}&slide=${__args.s}`);
 		}
 		return payload.message.reply(`https://tt-embed.com/?q=${__args[COMMAND_NAME]}`);
 	}
