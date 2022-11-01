@@ -28,8 +28,8 @@ export default class MainCommand extends BaseCommand {
 	}
 
 	async run(payload: Context, __args: ParsedArgs): Promise<any> {
-		if(!payload[COMMAND_NAME]) return payload.reply("You need to add a link/code");
-		if(!payload[COMMAND_NAME].startsWith("http")) payload[COMMAND_NAME] = "https://vm.tiktok.com/" + payload[COMMAND_NAME];
+		if(!__args[COMMAND_NAME]) return payload.reply("You need to add a link/code");
+		if(!__args[COMMAND_NAME].startsWith("http")) __args[COMMAND_NAME] = "https://vm.tiktok.com/" + __args[COMMAND_NAME];
 		
 		if(payload.message.guild?.can(Permissions.MANAGE_MESSAGES)) {
 			payload.message.delete();
