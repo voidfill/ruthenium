@@ -28,11 +28,14 @@ export default class MainCommand extends BaseCommand {
 	}
 
 	async run(payload: Context, __args: ParsedArgs): Promise<any> {
+		if(!payload[COMMAND_NAME]) return payload.reply("You need to add a link/code");
+		if(!payload[COMMAND_NAME].startsWith("http")) payload[COMMAND_NAME] = "https://vm.tiktok.com/" + payload[COMMAND_NAME];
+		
 		if(payload.message.guild?.can(Permissions.MANAGE_MESSAGES)) {
 			payload.message.delete();
 		}
 		if(__args.s) {
-			return payload.reply(`https://tt-embed.com/slides/?q=${__args[COMMAND_NAME]}}&slide=${__args.s}`);
+			return payload.reply(`https://tt-embed.com/slides/?q=${__args[COMMAND_NAME]}&slide=${__args.s}`);
 		}
 		return payload.message.reply(`https://tt-embed.com/?q=${__args[COMMAND_NAME]}`);
 	}
